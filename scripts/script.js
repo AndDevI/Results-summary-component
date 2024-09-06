@@ -3,6 +3,7 @@ function show() {
         .then(response => response.json())
         .then(datas => {
             const cont_ = document.querySelector("#results");
+            const mediaSpan = document.querySelector("#media");
 
             cont_.innerHTML = '';
 
@@ -19,6 +20,9 @@ function show() {
                 "text-greenTeal",
                 "text-cobaltBlue"   
             ];
+
+            let totalScore = 0;
+            const numberOfItems = datas.length;
 
             datas.forEach((data, index) => {
                 const card = document.createElement("div");
@@ -49,7 +53,17 @@ function show() {
                 card.appendChild(total);
 
                 cont_.appendChild(card);
+
+                totalScore += parseInt(data.score, 10);
             });
+
+            const averageScore = Math.floor(totalScore / numberOfItems);
+
+            if (mediaSpan) {
+                mediaSpan.textContent = `${averageScore}`;
+            } else {
+                console.warn('Elemento com id "media" não encontrado.');
+            }
         })
         .catch(error => {
             console.error('Erro ao carregar os dados:', error);
