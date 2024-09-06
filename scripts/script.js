@@ -1,7 +1,17 @@
+function randomizeScores(data) {
+    data.forEach(item => {
+        item.score = Math.floor(Math.random() * 101).toString();
+    });
+}
+
+
 function show() {
     fetch('../utils/data.json')
         .then(response => response.json())
         .then(datas => {
+
+            randomizeScores(datas);
+
             const cont_ = document.querySelector("#results");
             const mediaSpan = document.querySelector("#media");
 
